@@ -17,4 +17,4 @@ jobs:
           token: ${{ secrets.DO_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save ticketing
       # Restart deployment to get latest code from image
-      - run: kubectl apply -f infra/k8s
+      - run: kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-prod
