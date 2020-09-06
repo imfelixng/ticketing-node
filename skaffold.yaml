@@ -1,0 +1,56 @@
+apiVersion: skaffold/v2beta2
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+    - infra/k8s/*
+build:
+  artifacts:
+  - image: ngquangan/ticketing-auth
+    context: auth
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
+  - image: ngquangan/ticketing-tickets
+    context: tickets
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
+  - image: ngquangan/ticketing-orders
+    context: orders
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
+  - image: ngquangan/ticketing-expiration
+    context: expiration
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
+  - image: ngquangan/ticketing-payments
+    context: payments
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
+  - image: ngquangan/ticketing-client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: '**/*.js'
+          dest: .
